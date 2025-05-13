@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+    font-family: 'Special Gothic Expanded One', sans-serif;
+    background-color: #f9fafb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+           
+    letter-spacing: 1px; 
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #0056b3;
+}
+
+input[type="text"] {
+    width: 100%;
+    font-family: 'Special Gothic Expanded One', sans-serif;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-size: 13px;
+    letter-spacing: 1px; 
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+button {
+    padding: 12px 24px;
+    font-family: 'Special Gothic Expanded One', sans-serif;
+    letter-spacing: 1px; 
+    font-size: 16px;
+    border: none;
+    background-color: #152230;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#loading {
+    margin-top: 15px;
+    display: none;
+    color: #777;
+    font-style: italic;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+.safe {
+    background-color: #e6f4ea;
+    color: #2e7d32;
+    border: 1px solid #b2dfdb;
+}
+
+.malicious {
+    background-color: #fdecea;
+    color: #c62828;
+    border: 1px solid #f5c6cb;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+#login-loading {
+    margin-top: 10px;
+    display: none;
+    color: #777;
+    font-style: italic;
+}
+
+#login-result {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}

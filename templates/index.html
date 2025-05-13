@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/temp.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>SQL INJECTION DETECTION SYSTEM</h1>
+        <label for="sql-query">Enter SQL Query:</label>
+        <input type="text" id="sql-query" placeholder="SELECT * FROM users WHERE gpa >= 3.5">
+        <button onclick="sendQuery()">Submit Query</button>
+        <div id="loading">Checking...</div>
+
+        <div id="result">
+            <h3>Result</h3>
+            <p><strong>Query:</strong> <span id="query-text"></span></p>
+            <p><strong>Status:</strong> <span id="classification"></span></p>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Login</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="SELECT * FROM users WHERE username = ''">
+    
+        <label for="password">Password:</label>
+        <input type="text" id="password" placeholder="password = ''">
+    
+        <button onclick="sendLogin()">Login</button>
+        <div id="login-loading">Checking...</div>
+    
+        <div id="login-result">
+            <h3>Login Check</h3>
+            <p><strong>Status:</strong> <span id="login-classification"></span></p>
+            <p><strong></strong> <span id="simulated-query"></span></p>
+
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+    function sendQuery() {
+        const sqlQuery = document.getElementById("sql-query").value;
+        const modelType = "svm";
+
+        if (!sqlQuery.trim()) {
+            alert("Please enter a SQL query.");
+            return;
+        }
+
+        document.getElementById("loading").style.display = "block";
+        document.getElementById("result").style.display = "none";
+
+        fetch('/detect', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ sql_query: sqlQuery, model_type: modelType })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("loading").style.display = "none";
+            if (data.error) {
+                alert(data.error);
+                return;
+            }
+
+            const resultDiv = document.getElementById("result");
+            const classification = document.getElementById("classification");
+
+            document.getElementById("query-text").innerText = data.query;
+            classification.innerText = data.classification;
+
+            resultDiv.classList.remove("safe", "malicious");
+            resultDiv.classList.add(data.classification.toLowerCase());
+            resultDiv.style.display = "block";
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById("loading").style.display = "none";
+        });
+    }
+</script>
+
+</body>
+</html>
